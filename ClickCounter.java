@@ -122,12 +122,70 @@ class HGPanel extends JPanel implements MouseListener
                 circles(x, y, g);
             }
         }
+        else if (!entered)
+        {
+            setBackground(Color.red);
+            super.paintComponent(g);
+            g.drawString("Outside", 20, 50);
+            g.drawString( "Click Counter: " + clicked, 20 , 500);
+            g.drawString( "Inside Counter: " + enter, 400 , 500);
+            int [] arx = new int[]{35, 29, 20, 27, 22, 35, 48, 44, 53, 43};
+            int [] ary = new int[]{510, 520, 520, 530, 540, 530, 540, 530, 520, 520};
+            g.setColor(Color.yellow);
+            if (stars >= 1)g.fillPolygon(arx, ary, 10);
+
+            for(int i = stars-1; i > 0; i--)
+            {
+                for(int n = 0; n < arx.length; n++)
+                {
+                    arx[n]+=40;
+                }
+                stars(arx, ary, 10, g);
+            }
+            int x = 400;
+            int y = 510;
+            g.setColor(Color.GREEN);
+            if(circles >= 1)
+            {
+                g.fillOval(x, y, 30, 30);
+            }
+            for(int i = 0; i < circles -1; i ++)
+            {
+                x+=35;
+                circles(x, y, g);
+            }
+
+        }
     }
-    public void circles(int x, int y, Graphics g){}
-    public void stars(int [] ar1, int [] ar2, int numofsides, Graphics g){}
-    public void mouseEntered(MouseEvent e){}
-    public void mouseExited(MouseEvent e){}
+    public void circles(int x, int y, Graphics g)
+    {
+        g.setColor(Color.GREEN);
+        g.fillOval(x, y, 30, 30);
+    }
+    public void stars(int [] ar1, int [] ar2, int numofsides, Graphics g)
+    {
+        g.setColor(Color.yellow);
+        g.fillPolygon(ar1, ar2, numofsides);
+    }
+
+    public void mouseEntered(MouseEvent e)
+    {
+        entered = true;
+        enter++;
+        repaint();
+    }
+
+    public void mouseExited(MouseEvent e)
+    {
+        entered = false;
+        repaint();
+    }
+
     public void mousePressed(MouseEvent evt) { }
-    public void mouseClicked(MouseEvent evt){}
+    public void mouseClicked(MouseEvent evt)
+    {
+        if(entered) clicked ++;
+        repaint();
+    }
     public void mouseReleased(MouseEvent evt) { }
 }
