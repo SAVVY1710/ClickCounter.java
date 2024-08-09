@@ -6,6 +6,7 @@ Counting clicks
 */
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -49,7 +50,78 @@ class HGPanel extends JPanel implements MouseListener
     }
     public void paintComponent(Graphics g)
     {
-        
+        super.paintComponent(g);
+        stars = clicked/5;
+        circles = enter/6;
+        Font f = new Font("Serif", Font.BOLD, 20);
+        g.setFont(f);
+        g.setColor(Color.BLACK);
+        g.drawString("Inside", 20, 50);
+
+        if(enter == 0 && clicked == 0)
+        {
+            setBackground(Color.blue);
+            g.drawString("Inside", 20, 50);
+            g.drawString( "Click Counter: " + clicked, 20 , 500);
+            g.drawString( "Click Counter: " + clicked, 400 , 500);
+            g.setColor(Color.yellow);
+            int [] arx = new int[]{35, 29, 20, 27, 22, 35, 48, 44, 53, 43};
+            int [] ary = new int[]{510, 520, 520, 530, 540, 530, 540, 530, 520, 520};
+            g.setColor(Color.yellow);
+            if (stars >= 1)g.fillPolygon(arx, ary, 10);
+            for(int i = stars; i > 0; i--)
+            {
+                for(int n = 0; n < arx.length; n++)
+                {
+                    arx[n] =+ 40;
+                }
+                stars(arx, ary, 10, g);
+            }
+            int x = 400;
+            int y = 510;
+            g.setColor(Color.GREEN);
+            if(circles >= 1)
+            {
+                g.fillOval(x, y, 30, 30);
+            }
+            for(int i = 0; i < circles -1; i ++)
+            {
+                x+=35;
+                circles(x, y, g);
+            }
+        }
+
+        else if( entered)
+        {
+            setBackground(Color.blue);
+            g.drawString("Inside", 20, 50);
+            g.drawString( "Click Counter: " + clicked, 20 , 500);
+            g.drawString( "Inside counter " + enter, 400 , 500);
+            int [] arx = new int[]{35, 29, 20, 27, 22, 35, 48, 44, 53, 43};
+            int [] ary = new int[]{510, 520, 520, 530, 540, 530, 540, 530, 520, 520};
+            g.setColor(Color.yellow);
+            if (stars >= 1)g.fillPolygon(arx, ary, 10);
+            for(int i = stars-1; i > 0; i--)
+            {
+                for(int n = 0; n < arx.length; n++)
+                {
+                    arx[n]+= 40;
+                }
+                stars(arx, ary, 10, g);
+            }
+            int x = 400;
+            int y = 510;
+            g.setColor(Color.GREEN);
+            if(circles >= 1)
+            {
+                g.fillOval(x, y, 30, 30);
+            }
+            for(int i = 0; i < circles -1; i ++)
+            {
+                x+=35;
+                circles(x, y, g);
+            }
+        }
     }
     public void circles(int x, int y, Graphics g){}
     public void stars(int [] ar1, int [] ar2, int numofsides, Graphics g){}
